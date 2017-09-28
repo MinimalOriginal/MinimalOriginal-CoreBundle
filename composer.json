@@ -1,5 +1,5 @@
 {
-    "name": "MinimalOriginal/CoreBundle",
+    "name": "minimaloriginal/core-bundle",
     "description" : "The core bundle for Minimal",
     "type" : "symfony-bundle",
     "keywords" : [
