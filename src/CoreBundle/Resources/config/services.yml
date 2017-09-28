@@ -1,0 +1,20 @@
+services:
+  minimal_manager.module_list:
+      class: MinimalOriginal\CoreBundle\Modules\ModuleList
+      arguments: ["@request_stack"]
+
+  minimal_manager.module.core:
+      class: MinimalOriginal\CoreBundle\MinimalModule
+      tags: [minimal_manager.module]
+
+  MinimalOriginal\CoreBundle\Form\AppType:
+      arguments: ['@doctrine.orm.entity_manager']
+      tags: [form.type]
+
+  MinimalOriginal\CoreBundle\EventListener\RoutingSubscriber:
+      tags:
+            - { name: doctrine.event_subscriber }
+
+  MinimalOriginal\CoreBundle\Routing\ExtraLoader:
+      arguments: ["@doctrine.orm.entity_manager", "@minimal_manager.module_list"]
+      tags: [routing.loader]
