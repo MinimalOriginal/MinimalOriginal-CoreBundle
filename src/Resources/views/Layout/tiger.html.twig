@@ -1,0 +1,9 @@
+{% extends "base.html.twig" %}
+{% block content %}
+<div id="content">
+  <div class="row">
+    <div class="column small-12 medium-4">{% block sidebar %}{% endblock %}</div>
+    <div class="column small-12 medium-8">{% block data %}{% endblock %}</div>
+  </div>
+</div>
+{% endblock content %}

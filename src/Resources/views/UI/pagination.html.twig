@@ -1,0 +1,45 @@
+{% set queryFilter = request.attributes.get('queryFilter') %}
+{% set routeName = routeName|default(queryFilter.routeName) %}
+{% set routeParams = routeParams|default(queryFilter.routeParams) %}
+
+{% set total = nbResults|default(data.count is defined ? data.count : data|length) %}
+{% set limit = queryFilter.limit %}
+{% set nbPages = nb_pages|default((total / max(1, limit))|round(0, "ceil")) %}
+{% set page = current_page|default(min(nbPages, queryFilter.page)) %}
+{% set nbNext = nb_pages_next|default(5) %}
+
+{% set display = (display is not defined or display is not same as("")) and nbPages > 1 %}
+
+{% block pagination %}
+{%- if display is same as(true) -%}
+    <ul class="pagination text-center" role="navigation" aria-label="Pagination">
+    {% block pages %}
+        {%- if page > 1 -%}
+          <li class="pagination-previous">
+            <a href="{{ path(routeName, routeParams|merge({page: (page - 1)})) }}" title="{{ "Précédente"|trans|e }}" aria-label="{{ "Page précédente"|trans|e }}">{{ "Précédente"|trans }}</a>
+          </li>
+        {%- else -%}
+          <li class="pagination-previous disabled">{{ "Précédente"|trans }}</li>
+        {%- endif -%}
+        {%- for p in paginate(page, limit, total, nbNext) -%}
+            {%- if p is same as("...") -%}
+                <li class="ellipsis"></li>
+            {%- else -%}
+              {% if p == page %}
+                <li class="current"><span class="show-for-sr">{{ "Vous êtes sur cette page"|trans }}</span> {{- p -}}</li>
+              {% else %}
+                <li><a href="{{ path(routeName, routeParams|merge({page: p})) }}" title="{{ p|e }}" aria-label="{{ "Page %nPage%"|trans({'%nPage%': p}) }}">{{- p -}}</a></li>
+              {% endif %}
+            {%- endif -%}
+        {%- endfor -%}
+        {%- if page < nbPages -%}
+          <li class="pagination-next">
+            <a href="{{ path(routeName, routeParams|merge({page: (page + 1)})) }}" title="{{ "Suivante"|trans|e }}" aria-label="{{ "Page suivante"|trans|e }}">{{ "Suivante"|trans }}</a>
+          </li>
+        {%- else -%}
+          <li class="pagination-next disabled">{{ "Suivante"|trans }}</li>
+        {%- endif -%}
+    {% endblock %}
+  </ul>
+{%- endif -%}
+{% endblock %}

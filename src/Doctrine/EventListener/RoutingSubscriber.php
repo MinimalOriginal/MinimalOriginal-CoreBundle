@@ -1,6 +1,6 @@
 <?php
 
-namespace MinimalOriginal\CoreBundle\EventListener;
+namespace MinimalOriginal\CoreBundle\Doctrine\EventListener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;

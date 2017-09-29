@@ -1,0 +1,16 @@
+{%- set attributes = {class: 'item'}|merge(attributes|default({})) -%}
+{%- set title = title|default(object is defined ? object.title|default(null) : null) -%}
+{%- set url = url|default(null) -%}
+<div{% for key,value in attributes %} {% if value is same as(true) %}{{key}}{% else %}{{key}}="{{value}}"{% endif %}{% endfor %}>
+  <a href="{{ url }}" title="{{ title|e }}" class="image">
+    {% block image "" %}
+  </a>
+  <div class="content">
+    <a class="header" itemprop="name" href="{{ url }}" title="{{ title|e }}">
+    {% block header "" %}
+    </a>
+    <div class="meta">{% block meta "" %}</div>
+    <div class="description"><p>{% block description "" %}</p></div>
+    <div class="extra"></div>
+  </div>
+</div>

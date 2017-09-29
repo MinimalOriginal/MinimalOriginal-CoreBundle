@@ -7,14 +7,27 @@ services:
       class: MinimalOriginal\CoreBundle\MinimalModule
       tags: [minimal_manager.module]
 
+  minimal_core.twig.text_extension:
+    class: MinimalOriginal\CoreBundle\Twig\TextExtension
+    tags:
+        - { name: twig.extension }
+
+  minimal_core.twig.pagination_extension:
+    class: MinimalOriginal\CoreBundle\Twig\PaginationExtension
+    tags:
+        - { name: twig.extension }
+
   MinimalOriginal\CoreBundle\Form\AppType:
       arguments: ['@doctrine.orm.entity_manager']
       tags: [form.type]
 
-  MinimalOriginal\CoreBundle\EventListener\RoutingSubscriber:
+  MinimalOriginal\CoreBundle\Doctrine\EventListener\RoutingSubscriber:
       tags:
             - { name: doctrine.event_subscriber }
 
   MinimalOriginal\CoreBundle\Routing\ExtraLoader:
       arguments: ["@doctrine.orm.entity_manager", "@minimal_manager.module_list"]
       tags: [routing.loader]
+
+  MinimalOriginal\CoreBundle\HttpKernel\EventListener\Listener:
+    tags: [kernel.event_subscriber]

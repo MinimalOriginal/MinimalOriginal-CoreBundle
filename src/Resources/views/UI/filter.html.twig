@@ -1,0 +1,20 @@
+{% set queryFilter = request.attributes.get('queryFilter') %}
+{% set routeName = routeName|default(queryFilter.routeName) %}
+{% set routeParams = routeParams|default(queryFilter.routeParams) %}
+
+{% set filtersExposed = queryFilter.filterExposed(filter_name) %}
+
+{% set display = (display is not defined or display is not same as("")) and filtersExposed|length > 1 %}
+
+{% block filters %}
+{%- if display is same as(true) -%}
+  <a data-toggle="{{filter_name}}-dropdown">Toggle Dropdown</a>
+  <div class="dropdown-pane" id="{{filter_name}}-dropdown" data-dropdown data-hover="true" data-hover-pane="true">
+    <ul class="vertical menu">
+      {%- for flt_name,flt_title in filtersExposed %}
+      <li><a href="{{ path(routeName, routeParams|merge({(filter_name): flt_name})) }}">{{flt_title}}</a></li>
+      {% endfor -%}
+    </ul>
+  </div>
+{%- endif -%}
+{% endblock %}
