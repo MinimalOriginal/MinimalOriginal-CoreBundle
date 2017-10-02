@@ -25,16 +25,30 @@ class Routing
     /**
      * @var string
      *
-     * @ORM\Column(name="entity", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
-    private $entity;
+    private $title;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="entity_id", type="integer")
+     * @ORM\Column(name="module", type="string", length=255, nullable=true)
      */
-    private $entityId;
+    private $module;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="route", type="string", length=255)
+     */
+    private $route;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="route_params", type="array")
+     */
+    private $routeParams;
 
     /**
      * @var \DateTime $created
@@ -55,10 +69,55 @@ class Routing
     private $object = null;
 
     public function __toString(){
-      if( null !== $this->getObject() ){
-        return $this->getObject()->__toString();
-      }
-      return 'null';
+      return $this->getTitle();
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Routing
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set module
+     *
+     * @param string $module
+     *
+     * @return Routing
+     */
+    public function setModule($module)
+    {
+        $this->module = $module;
+
+        return $this;
+    }
+
+    /**
+     * Get module
+     *
+     * @return string
+     */
+    public function getModule()
+    {
+        return $this->module;
     }
 
     /**
@@ -72,51 +131,51 @@ class Routing
     }
 
     /**
-     * Set entity
+     * Set route
      *
-     * @param string $entity
+     * @param string $route
      *
      * @return Routing
      */
-    public function setEntity($entity)
+    public function setRoute($route)
     {
-        $this->entity = $entity;
+        $this->route = $route;
 
         return $this;
     }
 
     /**
-     * Get entity
+     * Get route
      *
      * @return string
      */
-    public function getEntity()
+    public function getRoute()
     {
-        return $this->entity;
+        return $this->route;
     }
 
     /**
-     * Set entityId
+     * Set routeParams
      *
-     * @param int $entityId
+     * @param array $routeParams
      *
      * @return Routing
      */
-    public function setEntityId($entityId)
+    public function setRouteParams($routeParams)
     {
-        $this->entityId = $entityId;
+        $this->routeParams = $routeParams;
 
         return $this;
     }
 
     /**
-     * Get entityId
+     * Get routeParams
      *
-     * @return int
+     * @return array
      */
-    public function getEntityId()
+    public function getRouteParams()
     {
-        return $this->entityId;
+        return $this->routeParams;
     }
 
     /**

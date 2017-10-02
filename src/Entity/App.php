@@ -3,6 +3,7 @@
 namespace MinimalOriginal\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use MinimalOriginal\CoreBundle\Annotation\Exposure;
 
 /**
  * App
@@ -24,6 +25,7 @@ class App
     /**
      * @var string
      *
+     * @Exposure(groups = {"manager"}, name = "Nom")
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
@@ -31,6 +33,7 @@ class App
     /**
      * @var string
      *
+     * @Exposure(groups = {"manager"}, name = "Attribut")
      * @ORM\Column(name="attr", type="string", length=255, unique=true)
      */
     private $attr;
@@ -38,6 +41,7 @@ class App
     /**
      * @var string
      *
+     * @Exposure(groups = {"manager"}, name = "Valeur")
      * @ORM\Column(name="value", type="string", length=255, nullable=true)
      */
     private $value;

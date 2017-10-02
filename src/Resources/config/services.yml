@@ -1,7 +1,6 @@
 services:
   minimal_manager.module_list:
       class: MinimalOriginal\CoreBundle\Modules\ModuleList
-      arguments: ["@request_stack"]
 
   minimal_manager.module.core:
       class: MinimalOriginal\CoreBundle\MinimalModule
@@ -22,12 +21,27 @@ services:
       tags: [form.type]
 
   MinimalOriginal\CoreBundle\Doctrine\EventListener\RoutingSubscriber:
+      arguments: ["@minimal_manager.module_list"]
       tags:
             - { name: doctrine.event_subscriber }
 
-  MinimalOriginal\CoreBundle\Routing\ExtraLoader:
-      arguments: ["@doctrine.orm.entity_manager", "@minimal_manager.module_list"]
-      tags: [routing.loader]
-
   MinimalOriginal\CoreBundle\HttpKernel\EventListener\Listener:
     tags: [kernel.event_subscriber]
+
+  minimal_exposure_annotation_manager:
+      class: MinimalOriginal\CoreBundle\Annotation\ExposureManager
+      arguments: ["@annotation_reader"]
+
+# Routes Loaders
+  minimal_annotation_class_loader:
+      class: MinimalOriginal\CoreBundle\Routing\AnnotationClassLoader
+      arguments: ["@annotation_reader", "@doctrine.orm.entity_manager"]
+      tags: [routing.loader]
+
+  MinimalOriginal\CoreBundle\Routing\AnnotationFileLoader:
+      arguments: ["@file_locator", "@minimal_annotation_class_loader"]
+      tags: [routing.loader]
+
+  MinimalOriginal\CoreBundle\Routing\AnnotationDirectoryLoader:
+      arguments: ["@file_locator", "@minimal_annotation_class_loader"]
+      tags: [routing.loader]

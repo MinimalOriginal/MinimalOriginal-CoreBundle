@@ -21,6 +21,7 @@ abstract class AbstractRepository extends EntityRepository{
    */
   public function getOrderExposed(){
     return array(
+      'title' => "Titre",
       'date' => "Date de création",
       'updated' => "Date de mise à jour",
     );
@@ -193,6 +194,10 @@ abstract class AbstractRepository extends EntityRepository{
   protected function addOrderBy(QueryBuilder $qb)
   {
       switch ($this->getOrderType()) {
+          case 'title':
+              $qb->orderBy($qb->getRootAlias() . '.title', $this->getOrderDir());
+
+              break;
           case 'updated':
               $qb->orderBy($qb->getRootAlias() . '.updated', $this->getOrderDir());
 
@@ -224,6 +229,9 @@ abstract class AbstractRepository extends EntityRepository{
    * @return string
    */
   public function getOrderType(){
+    if( null === $this->getQueryFilter()->getOrderType()){
+      $this->getQueryFilter()->setOrderType($this->getDefaultOrderType());
+    }
     return $this->getQueryFilter()->getOrderType()?:$this->getDefaultOrderType();
   }
 
@@ -233,6 +241,9 @@ abstract class AbstractRepository extends EntityRepository{
    * @return string
    */
   public function getOrderDir(){
+    if( null === $this->getQueryFilter()->getOrderDir()){
+      $this->getQueryFilter()->setOrderDir($this->getDefaultOrderDir());
+    }
     return $this->getQueryFilter()->getOrderDir()?:$this->getDefaultOrderDir();
   }
 

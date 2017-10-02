@@ -3,7 +3,6 @@
 namespace MinimalOriginal\CoreBundle\Modules;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 
 use MinimalOriginal\CoreBundle\Entity\EntityRoutedInterface;
@@ -11,19 +10,8 @@ use MinimalOriginal\CoreBundle\Modules\ModuleInterface;
 
 class ModuleList
 {
-    private $requestStack;
     private $modules = array();
     private $entities = array();
-
-    /**
-     * Constructors.
-     *
-     * @param RequestStack        $requestStack
-     */
-    public function __construct(RequestStack $requestStack)
-    {
-        $this->requestStack = $requestStack;
-    }
 
     /**
      * Sets modules.
@@ -63,10 +51,6 @@ class ModuleList
 
         $module = $this->modules[$name];
 
-        // if (null !== ($request = $this->requestStack->getCurrentRequest())) {
-        //     $module->setRequest($request);
-        // }
-
         return $module;
     }
 
@@ -84,10 +68,6 @@ class ModuleList
         }
 
         $module = $this->entities[$entity_class];
-
-        // if (null !== ($request = $this->requestStack->getCurrentRequest())) {
-        //     $module->setRequest($request);
-        // }
 
         return $module;
     }

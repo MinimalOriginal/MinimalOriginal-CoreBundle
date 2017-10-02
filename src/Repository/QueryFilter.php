@@ -161,7 +161,7 @@ class QueryFilter{
      */
     public function setOrderDir($orderDir = null)
     {
-        if (false === in_array($orderDir, array('ASC', 'DESC'), true)) {
+        if (false === in_array(strtoupper($orderDir), array('ASC', 'DESC'), true)) {
             $orderDir = null;
         }
 
@@ -178,6 +178,19 @@ class QueryFilter{
     public function getOrderDir($default = null)
     {
         return $this->orderDir ?: $default;
+    }
+
+    /**
+     * Returns revert of order_dir.
+     *
+     * @return null|string
+     */
+    public function revertOrderDir($default = null)
+    {
+      switch($this->getOrderDir()){
+        case 'ASC': return 'DESC';
+        case 'DESC': return 'ASC';
+      }
     }
 
     /**
