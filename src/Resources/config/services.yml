@@ -64,4 +64,3 @@ services:
 # SEO
   minimal_seo:
     class: MinimalOriginal\CoreBundle\Service\Seo
-    arguments: ["@doctrine.orm.entity_manager"]

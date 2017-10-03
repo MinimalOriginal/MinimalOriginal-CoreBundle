@@ -9,16 +9,13 @@ use MinimalOriginal\CoreBundle\Util\TextParser;
 
 class Seo
 {
-    private $titles = [];
-    private $description = "";
-    private $image;
+    protected $titles = [];
+    protected $description = "";
+    protected $image;
 
-    private $metadatas;
+    protected $metadatas;
 
-    /**
-    * @param EntityManagerInterface $em
-    */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct()
     {
       $this->metadatas = new ParameterBag();
     }
@@ -108,13 +105,13 @@ class Seo
       return implode(' | ', array_reverse($this->titles));
     }
 
-    private function createMetaName($name,$content){
+    protected function createMetaName($name,$content){
       $meta = new ParameterBag();
       $meta->set('name', $name);
       $meta->set('content', $content);
       return $meta;
     }
-    private function createMetaProperty($name,$content){
+    protected function createMetaProperty($name,$content){
       $meta = new ParameterBag();
       $meta->set('property', $name);
       $meta->set('content', $content);
