@@ -54,7 +54,7 @@ class AnnotationClassLoader extends AnnotatedRouteControllerLoader
         $routes = parent::load($class,$type);
         if( null !== $routes->get('minimal_front_home') ){
           $repo = $this->em->getRepository('MinimalOriginal\\CoreBundle\\Entity\\App');
-          if(null !== ($app = $repo->findOneBy(array('attr' => 'home-page')) )){
+          if(null !== ($app = $repo->findOneBy(array('attr' => 'homePage')) )){
             $repo = $this->em->getRepository('MinimalOriginal\\CoreBundle\\Entity\\Routing');
             $routing = $repo->findOneById($app->getValue());
             if( null !== $routing && 'minimal_front_home' !== $routing->getRoute()){
@@ -63,7 +63,7 @@ class AnnotationClassLoader extends AnnotatedRouteControllerLoader
           }
         }elseif( null === $routes->get('minimal_front_home') ){
           $repo = $this->em->getRepository('MinimalOriginal\\CoreBundle\\Entity\\App');
-          if(null !== ($app = $repo->findOneBy(array('attr' => 'home-page')) )){
+          if(null !== ($app = $repo->findOneBy(array('attr' => 'homePage')) )){
             $repo = $this->em->getRepository('MinimalOriginal\\CoreBundle\\Entity\\Routing');
             if( null !== $app->getValue() ){
               $routing = $repo->findOneById($app->getValue());

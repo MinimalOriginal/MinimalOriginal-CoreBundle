@@ -36,7 +36,7 @@ class AppType extends AbstractType
         }
 
         switch($entity->getAttr()){
-          case 'home-page':
+          case 'homePage':
             $form->add('value',ChoiceType::class,array(
               'choices' => $routing_choices,
               'required' => false,

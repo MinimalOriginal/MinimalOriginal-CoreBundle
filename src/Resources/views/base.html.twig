@@ -6,7 +6,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block page_title %}{% endblock %}</title>
+    {{ seo_title(app_parameters.siteName) -}}
+    {{ seo_metadatas() -}}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     {% block stylesheets %}{{parent()}}{% endblock stylesheets %}
   </head>
@@ -16,6 +17,9 @@
         <div class="row collapse">
           <div class="columns">
             <div class="top-bar">
+              <div class="top-bar-title">
+                <ul class="dropdown menu" data-dropdown-menu><li><a href="{{path('minimal_front_home')}}" title="{{"Se rendre sur la page d'accueil"|trans|e}}">{{app_parameters.siteName}}</a></li></ul>
+              </div>
               <div class="top-bar-left">
                 {% set menu = knp_menu_get('minimal_menu', [], {'root': 'menu-principal'} ) %}
                 {{ knp_menu_render(menu) }}
@@ -27,10 +31,19 @@
       {% block content %}{{parent()}}{% endblock content %}
       {% block footer %}
         <footer>
-          <div class="row collapse">
-            <div class="columns">
-              {% set menu = knp_menu_get('minimal_menu', [], {'root': 'footer'} ) %}
-              {{ knp_menu_render(menu) }}
+          <div class="section primary">
+            <div class="row collapse">
+              <div class="columns">
+                {% set menu = knp_menu_get('minimal_menu', [], {'root': 'footer'} ) %}
+                {{ knp_menu_render(menu) }}
+              </div>
+            </div>
+          </div>
+          <div class="section secondary">
+            <div class="row collapse">
+              <div class="columns">
+                {{ "Copyright©%year% %siteName%. Tous droits réservés."|trans({"%year%": "today"|date("Y"), '%siteName%': app_parameters.siteName}) }} {{ "La reproduction totale ou partielle sans permission est interdite."|trans }}
+              </div>
             </div>
           </div>
         </footer>

@@ -30,13 +30,13 @@ class CreateFirstSettingsCommand extends ContainerAwareCommand
 
         $app = new App();
         $app->setName("Nom de votre site");
-        $app->setAttr("site-name");
+        $app->setAttr("siteName");
         $app->setValue("Mon site internet");
         $em->persist($app);
 
         $app = new App();
         $app->setName("Page d'accueil par défaut");
-        $app->setAttr("home-page");
+        $app->setAttr("homePage");
         $app->setValue(null);
         $em->persist($app);
 

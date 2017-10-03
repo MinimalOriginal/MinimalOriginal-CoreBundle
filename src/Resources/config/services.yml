@@ -11,10 +11,7 @@ services:
     tags:
         - { name: twig.extension }
 
-  minimal_core.twig.pagination_extension:
-    class: MinimalOriginal\CoreBundle\Twig\PaginationExtension
-    tags:
-        - { name: twig.extension }
+
 
   MinimalOriginal\CoreBundle\Form\AppType:
       arguments: ['@doctrine.orm.entity_manager']
@@ -32,6 +29,19 @@ services:
       class: MinimalOriginal\CoreBundle\Annotation\ExposureManager
       arguments: ["@annotation_reader"]
 
+# Twig extensions
+  minimal_core.twig.pagination_extension:
+    class: MinimalOriginal\CoreBundle\Twig\PaginationExtension
+    tags:
+        - { name: twig.extension }
+
+  minimal_core.twig.seo_extension:
+    class: MinimalOriginal\CoreBundle\Twig\SeoExtension
+    calls:
+      - [setContainer, ["@service_container"]]
+    tags:
+        - { name: twig.extension }
+
 # Routes Loaders
   minimal_annotation_class_loader:
       class: MinimalOriginal\CoreBundle\Routing\Loader\AnnotationClassLoader
@@ -45,3 +55,13 @@ services:
   MinimalOriginal\CoreBundle\Routing\Loader\AnnotationDirectoryLoader:
       arguments: ["@file_locator", "@minimal_annotation_class_loader"]
       tags: [routing.loader]
+
+# App parameters
+  minimal_app_parameters:
+    class: MinimalOriginal\CoreBundle\Service\AppParameters
+    arguments: ["@doctrine.orm.entity_manager"]
+
+# SEO
+  minimal_seo:
+    class: MinimalOriginal\CoreBundle\Service\Seo
+    arguments: ["@doctrine.orm.entity_manager"]

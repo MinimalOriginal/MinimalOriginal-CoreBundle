@@ -8,9 +8,7 @@ class TextExtension extends \Twig_Extension
 {
 
     /**
-     * Returns a list of filters to add to the existing list.
-     *
-     * @return array An array of filters
+     * {@inheritdoc}
      */
     public function getFilters()
     {
