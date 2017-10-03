@@ -34,14 +34,14 @@ services:
 
 # Routes Loaders
   minimal_annotation_class_loader:
-      class: MinimalOriginal\CoreBundle\Routing\AnnotationClassLoader
+      class: MinimalOriginal\CoreBundle\Routing\Loader\AnnotationClassLoader
       arguments: ["@annotation_reader", "@doctrine.orm.entity_manager"]
       tags: [routing.loader]
 
-  MinimalOriginal\CoreBundle\Routing\AnnotationFileLoader:
+  MinimalOriginal\CoreBundle\Routing\Loader\AnnotationFileLoader:
       arguments: ["@file_locator", "@minimal_annotation_class_loader"]
       tags: [routing.loader]
 
-  MinimalOriginal\CoreBundle\Routing\AnnotationDirectoryLoader:
+  MinimalOriginal\CoreBundle\Routing\Loader\AnnotationDirectoryLoader:
       arguments: ["@file_locator", "@minimal_annotation_class_loader"]
       tags: [routing.loader]

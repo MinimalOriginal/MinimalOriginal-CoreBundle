@@ -1,6 +1,6 @@
 <?php
 
-namespace MinimalOriginal\CoreBundle\Routing;
+namespace MinimalOriginal\CoreBundle\Routing\Loader;
 
 use Symfony\Component\Routing\Loader\AnnotationDirectoryLoader as BaseAnnotationDirectoryLoader;
 

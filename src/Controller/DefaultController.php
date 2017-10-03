@@ -3,13 +3,13 @@
 namespace MinimalOriginal\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use MinimalOriginal\CoreBundle\Routing\Annotation\Route;
 
 
 class DefaultController extends Controller
 {
   /**
-   * @Route("/", name="minimal_front_home")
+   * @Route("/", name="minimal_front_home", title="Page d'accueil")
    */
     public function indexAction()
     {

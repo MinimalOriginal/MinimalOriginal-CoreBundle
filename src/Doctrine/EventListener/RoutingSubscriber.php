@@ -52,7 +52,6 @@ class RoutingSubscriber implements EventSubscriber
             $menu_routing = new Routing();
             $menu_routing->setTitle($entity->getTitle());
             $menu_routing->setRoute($showRoute);
-            $menu_routing->setModule($module->getName());
             $menu_routing->setRouteParams($showRouteParams);
           }
 
@@ -94,7 +93,6 @@ class RoutingSubscriber implements EventSubscriber
 
             $menu_routing = new Routing();
             $menu_routing->setTitle($entity->getTitle());
-            $menu_routing->setModule($module->getName());
             $menu_routing->setRoute($showRoute);
             $menu_routing->setRouteParams($showRouteParams);
 

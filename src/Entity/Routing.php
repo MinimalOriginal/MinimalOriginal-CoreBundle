@@ -32,13 +32,6 @@ class Routing
     /**
      * @var string
      *
-     * @ORM\Column(name="module", type="string", length=255, nullable=true)
-     */
-    private $module;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="route", type="string", length=255)
      */
     private $route;
@@ -94,30 +87,6 @@ class Routing
     public function getTitle()
     {
         return $this->title;
-    }
-
-    /**
-     * Set module
-     *
-     * @param string $module
-     *
-     * @return Routing
-     */
-    public function setModule($module)
-    {
-        $this->module = $module;
-
-        return $this;
-    }
-
-    /**
-     * Get module
-     *
-     * @return string
-     */
-    public function getModule()
-    {
-        return $this->module;
     }
 
     /**

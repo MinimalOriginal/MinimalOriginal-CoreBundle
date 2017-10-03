@@ -98,7 +98,6 @@ class ModuleList
       $module = $this->getModuleForEntity($entity_class);
 
       return array(
-        '_controller' => $module->getShowController(),
         'route' => $module->getShowRoute(),
         'routeParameters' => $module->getShowRouteParams($entity),
       );

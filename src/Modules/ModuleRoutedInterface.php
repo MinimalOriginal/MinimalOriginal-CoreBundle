@@ -10,8 +10,4 @@ interface ModuleRoutedInterface{
 
   public function getShowRouteParams(EntityRoutedInterface $entity);
 
-  public function getShowController();
-
-  public function getShowControllerParams(EntityRoutedInterface $entity);
-
 }
