@@ -52,9 +52,9 @@ class Seo
         $this->metadatas->set(
           'description',
           array(
-            $this->createMetaName('description',$this->description),
-            $this->createMetaProperty('og:description',$this->description),
-            $this->createMetaProperty('twitter:description',$this->description),
+            $this->createMetaName('description',$this->getDescription()),
+            $this->createMetaProperty('og:description',$this->getDescription()),
+            $this->createMetaProperty('twitter:description',$this->getDescription()),
           )
         );
       }
@@ -103,6 +103,17 @@ class Seo
         return $default;
       }
       return implode(' | ', array_reverse($this->titles));
+    }
+
+    /**
+    *
+    * @param string $default
+    *
+    * @return string
+    */
+    public function getDescription($default = null)
+    {
+      return $this->description;
     }
 
     protected function createMetaName($name,$content){
