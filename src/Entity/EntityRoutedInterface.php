@@ -10,4 +10,6 @@ interface EntityRoutedInterface{
 
   public function getTitle();
 
+  public function getShowRoute();
+
 }

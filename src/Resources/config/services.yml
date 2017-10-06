@@ -4,6 +4,7 @@ services:
 
   minimal_manager.module.core:
       class: MinimalOriginal\CoreBundle\MinimalModule
+      arguments: ['@doctrine.orm.entity_manager']
       tags: [minimal_manager.module]
 
   minimal_core.twig.text_extension:
@@ -11,14 +12,11 @@ services:
     tags:
         - { name: twig.extension }
 
-
-
   MinimalOriginal\CoreBundle\Form\AppType:
       arguments: ['@doctrine.orm.entity_manager']
       tags: [form.type]
 
   MinimalOriginal\CoreBundle\Doctrine\EventListener\RoutingSubscriber:
-      arguments: ["@minimal_manager.module_list"]
       tags:
             - { name: doctrine.event_subscriber }
 

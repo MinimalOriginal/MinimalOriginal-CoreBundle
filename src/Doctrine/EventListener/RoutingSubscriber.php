@@ -6,15 +6,11 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 
 use MinimalOriginal\CoreBundle\Entity\EntityRoutedInterface;
-use MinimalOriginal\CoreBundle\Modules\ModuleRoutedInterface;
-use MinimalOriginal\CoreBundle\Modules\ModuleList;
 
 use MinimalOriginal\CoreBundle\Entity\Routing;
 
 class RoutingSubscriber implements EventSubscriber
 {
-
-    private $moduleList;
 
     public function getSubscribedEvents()
     {
@@ -25,12 +21,6 @@ class RoutingSubscriber implements EventSubscriber
         );
     }
 
-    /**
-    * @param ModuleList $moduleList
-    */
-    public function __construct(ModuleList $moduleList){
-      $this->moduleList = $moduleList;
-    }
 
     public function postUpdate(LifecycleEventArgs $args)
     {
@@ -38,28 +28,23 @@ class RoutingSubscriber implements EventSubscriber
       if ($entity instanceof EntityRoutedInterface ) {
 
         $objectManager = $args->getObjectManager();
-        $module = $this->moduleList->getModuleForEntity(get_class($entity));
 
-        if( $module instanceof ModuleRoutedInterface){
+        $showRoute = $entity->getShowRoute();
 
-          $showRoute = $module->getShowRoute();
-          $showRouteParams = $module->getShowRouteParams($entity);
-
-          $repo = $objectManager->getRepository('MinimalOriginal\CoreBundle\Entity\Routing');
-          if( null !== ($menu_routing = $repo->findOneBy(array('route'=>$showRoute, 'routeParams'=>$showRouteParams)))){
-            $menu_routing->setTitle($entity->getTitle());
-          }else{
-            $menu_routing = new Routing();
-            $menu_routing->setTitle($entity->getTitle());
-            $menu_routing->setRoute($showRoute);
-            $menu_routing->setRouteParams($showRouteParams);
-          }
-
-          $objectManager->persist($menu_routing);
-          $objectManager->flush();
+        $repo = $objectManager->getRepository('MinimalOriginal\CoreBundle\Entity\Routing');
+        if( null !== ($menu_routing = $repo->findOneBy(array('route'=>$showRoute['route'], 'routeParams'=>$showRoute['params'])))){
+          $menu_routing->setTitle($entity->getTitle());
+        }else{
+          $menu_routing = new Routing();
+          $menu_routing->setTitle($entity->getTitle());
+          $menu_routing->setRoute($showRoute['route']);
+          $menu_routing->setRouteParams($showRoute['params']);
         }
 
+        $objectManager->persist($menu_routing);
+        $objectManager->flush();
       }
+
     }
 
     public function preRemove(LifecycleEventArgs $args)
@@ -69,10 +54,9 @@ class RoutingSubscriber implements EventSubscriber
         $objectManager = $args->getObjectManager();
         $repo = $objectManager->getRepository('MinimalOriginal\CoreBundle\Entity\Routing');
 
-        $showRoute = $module->getShowRoute();
-        $showRouteParams = $module->getShowRouteParams($entity);
+        $showRoute = $entity->getShowRoute();
 
-        $routings= $repo->findBy(array('route'=>$showRoute, 'routeParams'=>$showRouteParams));
+        $routings= $repo->findBy(array('route'=>$showRoute['route'], 'routeParams'=>$showRoute['params']));
         foreach( $routings as $routing ){
           $objectManager->remove($routing);
         }
@@ -85,20 +69,16 @@ class RoutingSubscriber implements EventSubscriber
         $entity = $args->getObject();
         if ($entity instanceof EntityRoutedInterface ) {
           $objectManager = $args->getObjectManager();
-          $module = $this->moduleList->getModuleForEntity(get_class($entity));
-          if( $module instanceof ModuleRoutedInterface){
 
-            $showRoute = $module->getShowRoute();
-            $showRouteParams = $module->getShowRouteParams($entity);
+            $showRoute = $entity->getShowRoute();
 
             $menu_routing = new Routing();
             $menu_routing->setTitle($entity->getTitle());
-            $menu_routing->setRoute($showRoute);
-            $menu_routing->setRouteParams($showRouteParams);
+            $menu_routing->setRoute($showRoute['route']);
+            $menu_routing->setRouteParams($showRoute['params']);
 
             $objectManager->persist($menu_routing);
             $objectManager->flush();
-          }
 
         }
     }
