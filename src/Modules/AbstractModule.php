@@ -2,34 +2,23 @@
 
 namespace MinimalOriginal\CoreBundle\Modules;
 
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 abstract class AbstractModule implements ModuleInterface{
 
-  private $em;
+  protected $informations;
 
-  public function __construct(EntityManagerInterface $em)
+  public function __construct()
   {
-      $this->em = $em;
+      $this->informations = new ParameterBag();
+      $this->init();
   }
 
-  public function createModel(){
-    $model_class = $this->getEntityClass();
-    return new $model_class();
-  }
-
-  public function updateModel($model, $andFlush = true){
-    $this->em->persist($model);
-    if ($andFlush) {
-        $this->em->flush();
-    }
-  }
-
-  public function removeModel($model, $andFlush = true){
-    $this->em->remove($model);
-    if ($andFlush) {
-        $this->em->flush();
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function getInformations(){
+    return $this->informations;
   }
 
 }

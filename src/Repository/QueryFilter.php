@@ -17,7 +17,7 @@ class QueryFilter{
 
   const MIN_LIMIT = 1;
   const MAX_LIMIT = 150;
-  const DEFAULT_LIMIT = 20;
+  const DEFAULT_LIMIT = 15;
   const DEFAULT_PAGE = 1;
   const DEFAULT_OFFSET = 0;
 
@@ -29,7 +29,7 @@ class QueryFilter{
     if( null !== $request){
       $this->request = $request;
       $this->setPage($this->request->query->get('page', 1));
-      $this->setLimit($this->request->query->get('limit', 20));
+      $this->setLimit($this->request->query->get('limit', self::DEFAULT_LIMIT));
       $this->setOrderType($this->request->query->get('order', null));
       $this->setOrderDir($this->request->query->get('dir', null));
     }
