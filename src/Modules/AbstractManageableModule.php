@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 
 abstract class AbstractManageableModule extends AbstractModule implements ManageableModuleInterface{
 
-  private $em;
+  protected $em;
   protected $informations;
 
   public function __construct(EntityManagerInterface $em)
@@ -49,6 +49,13 @@ abstract class AbstractManageableModule extends AbstractModule implements Manage
     if ($andFlush) {
         $this->em->flush();
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function flush(){
+    $this->em->flush();
   }
 
   /**

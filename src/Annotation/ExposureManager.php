@@ -37,7 +37,7 @@ class ExposureManager{
     {
         if( null !== ($annotation = $this->annotation_reader->getPropertyAnnotation($property,'MinimalOriginal\CoreBundle\Annotation\Exposure')) ){
           if( true === in_array($group, $annotation->getGroups()) ){
-            $exposed_properties[$property->getName()] = $annotation->getName();
+            $exposed_properties[$property->getName()] = array('name' => $annotation->getName(), 'type' => $annotation->getType());
           }
         }
     }

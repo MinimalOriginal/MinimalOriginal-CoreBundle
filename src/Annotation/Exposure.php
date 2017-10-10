@@ -25,6 +25,11 @@ class Exposure
     public $name;
 
     /**
+     * @var string
+     */
+    public $type;
+
+    /**
      * @return array
      */
     public function getGroups()
@@ -38,6 +43,14 @@ class Exposure
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
 }
