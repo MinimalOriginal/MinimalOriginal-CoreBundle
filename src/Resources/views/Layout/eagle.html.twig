@@ -1,4 +1,4 @@
-{% extends "base.html.twig" %}
+{% extends app.request.isXmlHttpRequest is same as(true) ? 'MinimalCoreBundle:Layout:minimum.html.twig' : "base.html.twig" %}
 {%- block body %}
   {%- block content %}
     <div class="expanded row">
