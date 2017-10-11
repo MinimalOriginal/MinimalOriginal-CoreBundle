@@ -14,10 +14,5 @@
     },
     "autoload": {
         "psr-4": { "MinimalOriginal\\CoreBundle\\": "src/" }
-    },
-    "scripts": {
-        "symfony-scripts": [
-            "MinimalOriginal\\CoreBundle\\Composer\\ScriptHandler::installAssets",
-        ]
-    },
+    }
 }
